@@ -1,15 +1,26 @@
+import ArraysOfObjects.exceptions.DateException;
+import ArraysOfObjects.exceptions.PaymentException;
+//import ArraysOfObjects.read_write_from_standart_stream.ReaderSt;
+//import ArraysOfObjects.read_write_from_standart_stream.WriterSt;
+import ArraysOfObjects.reader.FinanceSystemReader;
+import ArraysOfObjects.report.FinanceReport;
+import ArraysOfObjects.writer.FinanceSystemWriter;
 import StringProcessor.*;
-import static StringProcessor.StringProcessor.changeFirstLastWords;
-import static StringProcessor.StringProcessor.fromHexToDec;
-import static StringProcessor.StringProcessor.nCopyOfString;
+
+import java.io.IOException;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 
 public class Main {
 
     public static void main(String[] args) throws StringProcessorException {
+        //PrintWriter pr = new PrintWriter(System.out, true);
+        //pr.write("SSSSSSSSSSSS");
+        //pr.flush();
         try {
             //String f = nCopyOfString("1_2_", -1);
             //System.out.println(f);
-            String s = nCopyOfString("abc", 3);
+/*            String s = nCopyOfString("abc", 3);
             System.out.println(s);
             System.out.println();
             int count = StringProcessor.countOfFirstInSecondString("   aaa aa ", " a");
@@ -25,8 +36,38 @@ public class Main {
             System.out.println(sb);
             String hex = "I think 0xE 0x0000000F 0x0000000V 0x00000001 0xf";
             System.out.println(fromHexToDec(hex));
-        } catch (Exception e) {
-            System.err.println("There was not StringProcessorException");
+*/
+            System.out.println("Arrays of objects");
+            System.out.println("*****************");
+
+            System.out.println("Length of array, i-th FIO, i-th dd, i-th mm, i-th yy, i-th payment");
+
+            FinanceReport fr;
+            FinanceSystemReader reader = new FinanceSystemReader();
+            fr = reader.read();
+            //System.out.println(fr);
+            FinanceSystemWriter writer = new FinanceSystemWriter(fr);
+            writer.write(fr);
+            writer.write();
+            writer.writePaymentsBeginningOnChar('R');
+            writer.monthsWhenWasNoPaymentsTheYear(2000);
+            //writer.write();
+
+            //PrintStream stream = System.out;
+
+            //stream.print("WWWWWWWWWWWWWWWWWWWW");
+
+            //PrintWriter pr = new PrintWriter(System.out);
+            //pr.println("AAAAAAAAAAAAAAAAAAAAA");
+
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (PaymentException e) {
+            e.printStackTrace();
+        } catch (DateException e) {
+            e.printStackTrace();
         }
     }
 }
