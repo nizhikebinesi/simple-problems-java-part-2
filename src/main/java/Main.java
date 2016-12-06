@@ -67,7 +67,7 @@ public class Main {
             writer.write(fr);
 
             System.out.println("Введите символ, с которого должны начинаться платежи, которые вы хотите посмотреть:");
-            char ch = (char) sc.next().charAt(0);
+            char ch = sc.next().charAt(0);
 
             System.out.println();
             System.out.println("Платежи, начинающиеся на " + ch + ":");
@@ -82,7 +82,6 @@ public class Main {
             System.out.println("Введите год(целое число), чтобы получить список названий месяцев, в которых не было ни одного платежа в течение этого года:");
             int yy = sc.nextInt();
             System.out.println();
-            //System.out.println(yy + ": problem");
             System.out.println(fr.monthsWhenWasNoPaymentsThisYear(yy));//3
             System.out.println();
             System.out.println("Введите строку с датой в формате dd.mm.yy, чтобы вычислить суммарный платеж за данную дату:");
