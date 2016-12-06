@@ -23,7 +23,7 @@ public class Main {
         try {
             //String f = nCopyOfString("1_2_", -1);
             //System.out.println(f);
-            String s = nCopyOfString("abc", 3);
+            /*String s = nCopyOfString("abc", 3);
             System.out.println(s);
             System.out.println();
             int count = StringProcessor.countOfFirstInSecondString("   aaa aa ", " a");
@@ -39,29 +39,59 @@ public class Main {
             System.out.println(sb);
             String hex = "I think 0xE 0x0000000F 0x0000000V 0x00000001 0xf";
             System.out.println(fromHexToDec(hex));
+            */
+
+
+            Scanner sc = new Scanner(System.in);
+
+            //System.out.println("Введите символ, с которого должны начинаться платежи, которые вы хотите посмотреть:");
+            //char ch = sc.next().charAt(0);
+
+            //System.out.println(ch);
 
             System.out.println("Arrays of objects");
             System.out.println("*****************");
 
             System.out.println("Length of array, i-th FIO, i-th dd, i-th mm, i-th yy, i-th payment");
 
+
             FinanceReport fr;
             FinanceSystemReader reader = new FinanceSystemReader();
             fr = reader.read();
+
+            //System.out.println();
             //System.out.println(fr);
+
             FinanceSystemWriter writer = new FinanceSystemWriter(fr);
+
             writer.write(fr);
-            System.out.println("Платежи, начинающиеся на \'C\'(си)");
-            writer.write(fr.writePaymentsBeginningOnTheSymbol('C'));
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Число, меньше которого должен быть платеж, чтобы было нужно вывести информацию о платежах:");
+
+            System.out.println("Введите символ, с которого должны начинаться платежи, которые вы хотите посмотреть:");
+            char ch = (char) sc.next().charAt(0);
+
+            System.out.println();
+            System.out.println("Платежи, начинающиеся на " + ch + ":");
+            writer.write(fr.writePaymentsBeginningOnTheSymbol(ch));//1
+            System.out.println();
+            System.out.println("Число(в копейках), меньше которого должен быть платеж, чтобы было нужно вывести информацию о платежах:");
             int n = sc.nextInt();
-            System.out.println("Платежи, меньшие чем " + n);
-            writer.write(fr.writePaymentsLessThanValue(n));
-            System.out.println("Введите год(целое число), чтобы список названий месяцев, в которых не было ни одного платежа в течение этого года:");
+            System.out.println();
+            System.out.println("Платежи, меньшие чем " + n + " коп.");
+            writer.write(fr.writePaymentsLessThanValue(n));//2
+            System.out.println();
+            System.out.println("Введите год(целое число), чтобы получить список названий месяцев, в которых не было ни одного платежа в течение этого года:");
             int yy = sc.nextInt();
-            System.out.println(fr.monthsWhenWasNoPaymentsThisYear(yy));
+            System.out.println();
+            //System.out.println(yy + ": problem");
+            System.out.println(fr.monthsWhenWasNoPaymentsThisYear(yy));//3
+            System.out.println();
             System.out.println("Введите строку с датой в формате dd.mm.yy, чтобы вычислить суммарный платеж за данную дату:");
+            sc.nextLine();
+            String ddMmYy = sc.nextLine();
+            System.out.println();
+            //System.out.println("dd.mm.yy = " + ddMmYy);
+            System.out.println(fr.writeSumOfPaymentsOnThisDate(ddMmYy) + " копеек");//4
+            System.out.println();
 
             writer.close();
             reader.close();

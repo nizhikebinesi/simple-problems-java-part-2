@@ -40,6 +40,7 @@ public class FinanceSystemWriter implements IFinanceWriter {
      *
      * @throws IOException
      */
+    @Override
     public void close() throws IOException {
         this.systemWriter.close();
     }

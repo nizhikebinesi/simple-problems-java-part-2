@@ -5,8 +5,10 @@ import arrays_of_objects.exceptions.PaymentException;
 import arrays_of_objects.payment.Payment;
 import arrays_of_objects.report.FinanceReport;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 /**
@@ -15,7 +17,8 @@ import java.util.Scanner;
 public class FinanceSystemReader implements IFinanceReader {
 
     private InputStream systemStream;
-    private Scanner sc;
+    private BufferedReader systemReader;
+    //private Scanner sc;
     //private Reader systemReader;
     /**
      *
@@ -23,8 +26,10 @@ public class FinanceSystemReader implements IFinanceReader {
      */
     public FinanceSystemReader() throws IOException {
         this.systemStream = System.in;
+        this.systemReader = new BufferedReader(new InputStreamReader(System.in));
         //this.systemReader = new InputStreamReader(this.systemStream);
-        this.sc = new Scanner(this.systemStream);
+        //this.sc = new Scanner(this.systemStream);
+
     }
 
     /**
@@ -32,7 +37,7 @@ public class FinanceSystemReader implements IFinanceReader {
      * @throws  IOException
      */
     public FinanceReport read() throws IOException, PaymentException, DateException {
-        int n = this.sc.nextInt();
+        /*int n = this.sc.nextInt();
         Payment[] ar = new Payment[n];
         for (int i = 0; i < n; i++) {
             this.sc.nextLine();
@@ -43,14 +48,33 @@ public class FinanceSystemReader implements IFinanceReader {
             int payment = this.sc.nextInt();
             ar[i] = new Payment(fio, dd, mm, yy, payment);
         }
-        return new FinanceReport(ar);
+        return new FinanceReport(ar);*/
+        System.out.println("Enter new Payments\' array for new FinanceReport:");
+        int n = Integer.parseInt(this.systemReader.readLine());
+        Payment[] ar = new Payment[n];
+        for (int i = 0; i < n; i++) {
+            System.out.println("Enter name of " + (i + 1) +  "-th payer:");
+            String fio = this.systemReader.readLine().trim();
+            System.out.println("Enter day of " + (i + 1) + "-th payment:");
+            int dd = Integer.parseInt(this.systemReader.readLine());
+            System.out.println("Enter month of " + (i + 1) + "-th payment:");
+            int mm = Integer.parseInt(this.systemReader.readLine());
+            System.out.println("Enter year of " + (i + 1) + "-th payment:");
+            int yy = Integer.parseInt(this.systemReader.readLine());
+            System.out.println("Enter value of " + (i + 1) + "-th payment:");
+            int payment = Integer.parseInt(this.systemReader.readLine());
+            ar[i] = new Payment(fio, dd, mm, yy, payment);
+        }
+
+        return new FinanceReport((ar));
     }
 
     /**
      *
      * @throws IOException
      */
+    @Override
     public void close() throws IOException {
-        this.sc.close();
+        this.systemReader.close();
     }
 }

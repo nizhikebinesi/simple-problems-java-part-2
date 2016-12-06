@@ -38,72 +38,6 @@ public class FinanceFileReader implements IFinanceReader {
      * @throws IOException
      */
     public FinanceReport read() throws IOException, PaymentException, DateException {
-        //FinanceReport fr = null;
-        /*char buf[] = new char[fileStream.available()];
-        byte cbuf[] = new byte[fileStream.available()];
-        this.fileStream.read(cbuf, 0, fileStream.available());
-        //this.fileReader.read(buf);
-        //this.fileReader.read(buf);
-
-        for (int i = 0; i < cbuf.length; i++) {
-            buf[i] = (char) cbuf[i];
-            System.out.println(cbuf[i]);
-            //System.out.println(buf[i]);
-        }
-
-        //Payment[] ar = new Payment[];
-        //String[] fio = new String[]
-        ArrayList<Payment> al = new ArrayList<>();
-
-        int j = 0;
-        int start = 0;
-        int finish = 0;
-
-        while (j < buf.length) {
-            start = j;
-            while(buf[j] != '\n') {
-                //String fio;
-                j++;
-                finish++;
-            }
-            String fio = String.copyValueOf(buf, start, finish - start);
-
-            start = j;
-            while(buf[j] != '\n') {
-                //String fio;
-                j++;
-                finish++;
-            }
-            int dd = Integer.parseInt(String.copyValueOf(buf, start, finish - start));
-
-            start = j;
-            while(buf[j] != '\n') {
-                //String fio;
-                j++;
-                finish++;
-            }
-            int mm = Integer.parseInt(String.copyValueOf(buf, start, finish - start));
-
-            start = j;
-            while(buf[j] != '\n') {
-                //String fio;
-                j++;
-                finish++;
-            }
-            int yy = Integer.parseInt(String.copyValueOf(buf, start, finish - start));
-
-            start = j;
-            while(buf[j] != '\n') {
-                //String fio;
-                j++;
-                finish++;
-            }
-            int payment = Integer.parseInt(String.copyValueOf(buf, start, finish - start));
-
-            al.add(new Payment(fio, dd, mm, yy, payment));
-            //al.append(new Payment(fio))
-
-        }*/
         ArrayList<Payment> al = new ArrayList<>();
 
         String line = this.fileReader.readLine().trim();
@@ -144,6 +78,7 @@ public class FinanceFileReader implements IFinanceReader {
      *
      * @throws IOException
      */
+    @Override
     public void close() throws IOException {
         fileReader.close();
     }

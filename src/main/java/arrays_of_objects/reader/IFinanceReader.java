@@ -15,4 +15,5 @@ public interface IFinanceReader {
 
     //return Payment
     FinanceReport read() throws IOException, PaymentException, DateException;
+    void close() throws IOException;
 }

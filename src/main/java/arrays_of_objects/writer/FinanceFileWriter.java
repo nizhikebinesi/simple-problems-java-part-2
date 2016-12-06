@@ -10,7 +10,7 @@ import java.io.*;
 public class FinanceFileWriter implements IFinanceWriter {
 
     private OutputStream fileStream;
-    private Writer fileWriter;
+    private BufferedWriter fileWriter;
     private String path;
     private String name;
     /**
@@ -25,7 +25,7 @@ public class FinanceFileWriter implements IFinanceWriter {
 
         File file = new File(path, name);
         this.fileStream = new FileOutputStream(file);
-        this.fileWriter = new OutputStreamWriter(fileStream, "utf-8");
+        this.fileWriter = new BufferedWriter(new OutputStreamWriter(fileStream, "utf-8"));
     }
 
     /**
@@ -41,19 +41,20 @@ public class FinanceFileWriter implements IFinanceWriter {
         String s = "";
         if (fr != null) {
             for (int i = 0; i < fr.countOfPayments(); i++) {
-                //s = s.concat(fr.getIthPayment(i).toString());
                 s = s.concat(fr.getFioIthPayment(i) + "\n" + fr.getDdIthPayment(i) + "\n" + fr.getMmIthPayment(i) + "\n" + fr.getYyIthPayment(i) + "\n" + fr.getPaymentIthPayment(i) + "\n");
             }
         } else {
             s = "None.\n";
         }
         this.fileWriter.write(s);
+        this.fileWriter.flush();
     }
 
     /**
      *
      * @throws IOException
      */
+    @Override
     public void close() throws IOException {
         fileWriter.close();
     }
